@@ -64,8 +64,3 @@ export class NightSky extends HTMLElement {
         this.setAttribute("theme", theme);
     }
 }
-
-window.customElements.define("night-sky", NightSky);
-
-globalThis.nightSky = {
-};

@@ -1,7 +1,5 @@
 import fs from "fs";
 
-const placeholder = "STYLE_TEMPLATE";
-
 export function replaceStyleTemplate (options) {
     return {
         name: "replaceStyleTemplate",
@@ -9,7 +7,7 @@ export function replaceStyleTemplate (options) {
             const styles = fs.readFileSync(options.src, "utf-8");
             const template = `<style>${styles}</style>`;
             let targetContent = fs.readFileSync(options.target, "utf-8");
-            targetContent = targetContent.replaceAll(placeholder, template);
+            targetContent = targetContent.replace(/STYLE_TEMPLATE/g, template);
             fs.writeFileSync(options.target, targetContent, fs.w);
         }
     };
