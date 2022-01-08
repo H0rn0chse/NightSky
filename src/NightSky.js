@@ -1,33 +1,43 @@
-import { styleTemplate } from "./styles.js";
+import { calculateStyles, styleTemplate } from "./styles.js";
 
 export class NightSky extends HTMLElement {
     static get observedAttributes() {
         return [
-            "width",
-            "height",
-            "theme",
+            "layers",
+            "density",
+            "starcolor",
+            "velocity",
         ];
     }
 
     connectedCallback() {
         // Create a shadow root
         this.attachShadow({ mode: "open" });
+        // add private styles
         this.shadowRoot.appendChild(styleTemplate.content.cloneNode(true));
+        this._styles = document.createElement("style");
+        this.shadowRoot.appendChild(this._styles);
 
-        /*this.attachShadow({ mode: "open" });
+        // add container
+        this._container = document.createElement("div");
+        this._container.id = "container";
+        this.shadowRoot.appendChild(this._container);
 
-        const options = {
-            width: this.getAttribute("width"),
-            height: this.getAttribute("height"),
-            theme: this.getAttribute("theme"),
-            useThemeHandler: this.getAttribute("useThemeHandler") ?? true,
-        };
+        // calculate styles
+        this.recalculateStyles();
 
-        this.shadowRoot.appendChild(styleTemplate.content.cloneNode(true));
-        this.button = new Button(this.shadowRoot, options);
-        this.button.on("click", (evt) => {
-            this.setAttribute("theme", evt.theme)
-        })*/
+        this._observer = new ResizeObserver(this._handleResize.bind(this));
+        this._observer.observe(this._container);
+    }
+
+    _handleResize () {
+        if (this._timer) {
+            clearTimeout(this._timer);
+        }
+        this._timer = setTimeout(() => {
+            this._timer = null;
+            this.recalculateStyles();
+        }, 200);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -36,31 +46,68 @@ export class NightSky extends HTMLElement {
         }
 
         switch (name) {
-            case "width":
-                this.setWidth(parseInt(newValue, 10));
+            case "starcolor":
+                this.setAttribute(name, newValue);
                 break;
-            case "height":
-                this.setHeight(parseInt(newValue, 10));
+            case "layers":
+            case "density":
+            case "velocity":
+                this.setAttribute(name, parseInt(newValue, 10));
                 break;
             default:
                 throw new Error(`The property ${name} is not supported`);
         }
+
+        if (this.shadowRoot) {
+            this.recalculateStyles();
+        }
     }
 
-    setWidth (width) {
-        this.button?.setWidth(width);
-        this.setAttribute("width", width);
-        this.removeAttribute("height");
+    getOptions () {
+        const options = {
+            starColor: this.getAttribute("starcolor") || "#FFF",
+            layerCount: parseInt(this.getAttribute("layers"), 10) || 3,
+            layers: [],
+            density: parseInt(this.getAttribute("density"), 10) || 50,
+            velocity: parseInt(this.getAttribute("velocity"), 10) || 60,
+            width: parseInt(this._container.clientWidth, 10),
+            height: parseInt(this._container.clientHeight, 10),
+        };
+
+        // we want to have ~ options.density stars on a regular screen with 1920x1080
+        let starCount = ((options.width * options.height) / (1920 * 1080)) * options.density;
+
+        for (let i=0; i < options.layerCount; i++) {
+            starCount = starCount * 2;
+            const layer = [];
+            for (let k=0; k < starCount; k++) {
+                const starPos = {
+                    x: Math.round(Math.random() * options.width),
+                    y: Math.round(Math.random() * options.height),
+                };
+                layer.push(starPos);
+            }
+            options.layers.push(layer);
+        }
+
+        options.baseSpeed = options.height * ( 1 / Math.abs(options.velocity) );
+
+        return options;
     }
 
-    setHeight (height) {
-        this.button?.setHeight(height);
-        this.setAttribute("height", height);
-        this.removeAttribute("width");
-    }
+    recalculateStyles () {
+        const options = this.getOptions();
+        this._styles.innerHTML = calculateStyles(options);
 
-    setTheme (theme, skipAnimation) {
-        this.button?.setTheme(theme, skipAnimation);
-        this.setAttribute("theme", theme);
+        this._container.querySelectorAll(".stars").forEach((star) => {
+            star.remove();
+        });
+
+        for (let i=0; i < options.layerCount; i++) {
+            const star = document.createElement("div");
+            star.id = `stars${i}`;
+            star.classList.add("stars");
+            this._container.appendChild(star);
+        }
     }
 }
