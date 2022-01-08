@@ -1,7 +1,7 @@
 {
   "name": "@h0rn0chse/night-sky",
   "version": "1.0.0",
-  "description": "NightSky",
+  "description": "WebComponent for a night sky full of stars background",
   "type": "module",
   "main": "server.js",
   "scripts": {
