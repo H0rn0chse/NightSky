@@ -151,6 +151,15 @@
 
         recalculateStyles () {
             const options = this.getOptions();
+
+            const temp = JSON.parse(JSON.stringify(options));
+            delete temp.layers;
+            if (JSON.stringify(temp) === JSON.stringify(this._lastOptions)) {
+                // nothing changed
+                return;
+            }
+            this._lastOptions = temp;
+
             this._styles.innerHTML = calculateStyles(options);
 
             this._container.querySelectorAll(".stars").forEach((star) => {
