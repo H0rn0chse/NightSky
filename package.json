@@ -1,0 +1,45 @@
+{
+  "name": "@h0rn0chse/night-sky",
+  "version": "1.0.0",
+  "description": "NightSky",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H0rn0chse/NightSky.git"
+  },
+  "author": {
+    "name": "h0rn0chse",
+    "email": "h0rn0chse@gmx.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/H0rn0chse/NightSky/issues"
+  },
+  "homepage": "https://github.com/H0rn0chse/NightSky#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@h0rn0chse/socket-server": "^1.1.1",
+    "eslint": "^8.6.0",
+    "rollup": "^2.63.0",
+    "rollup-plugin-css-porter": "^1.0.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "night",
+    "sky",
+    "nightsky",
+    "star",
+    "field",
+    "starfield",
+    "background",
+    "webcomponent"
+  ]
+}
