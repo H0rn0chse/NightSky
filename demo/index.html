@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NightSky</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NightSky</title>
 
-    <link rel="stylesheet" href="./main.css">
+        <link rel="stylesheet" href="./main.css">
 
-    <!-- bundled ressources -->
-    <script src="../dist/bundle.js"></script>
-</head>
-<body>
-    <night-sky
-        id="nightSky"
-    >
-    </night-sky>
-    <div id="content">
-        <h1>NightSky</h1>
-    </div>
-</body>
+        <!-- bundled ressources -->
+        <script src="../dist/bundle.js"></script>
+    </head>
+    <body>
+        <night-sky
+            id="nightSky"
+            layers="3"
+            density="50"
+            velocity="60"
+            starcolor="#FFF"
+        >
+        </night-sky>
+        <div id="content">
+            <h1>NightSky</h1>
+        </div>
+    </body>
+    <script
+        data-label="Check out the GitHub repository!"
+        data-href="https://github.com/H0rn0chse/NightSky"
+        data-target="_blank"
+        src="https://unpkg.com/github-corners@latest/dist/embed.min.js">
+    </script>
 </html>
