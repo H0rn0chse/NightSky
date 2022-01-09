@@ -14,7 +14,7 @@
         let styles = "";
 
         options.layers.forEach((layer, index, arr) => {
-            const starSize = options.layers.length - index;
+            const starSize = index;
             const boxShadow = layer.reduce((result, pos, index, arr) => {
                 result += `${pos.x}px ${pos.y}px ${options.starColor}${index < arr.length -1 ? "," : ""}\n`;
                 return result;
