@@ -1,6 +1,6 @@
 # NightSky
 
-This WebComponent is inspired by the CodePen [Parallax Star background in CSS](https://codepen.io/saransh/pen/BKJun) from [Saransh Sinha](https://codepen.io/saransh). Since this is a WebComponent ir can be easily integrated in any React an Vue app.
+This WebComponent is inspired by the CodePen [Parallax Star background in CSS](https://codepen.io/saransh/pen/BKJun) from [Saransh Sinha](https://codepen.io/saransh). Since this is a WebComponent ir can be easily integrated in any React an Vue app. Check out the [live demo](https://h0rn0chse.github.io/NightSky/demo).
 
  * [Libraries](#libraries)
  * [Usage](#usage)
