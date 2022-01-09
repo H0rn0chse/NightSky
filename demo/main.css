@@ -1,7 +1,11 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    font-size: 56pt;
 }
 
 html, body {
@@ -35,6 +39,7 @@ html, body {
     background-color: rgba(123, 25, 214, 0.5);
     border-radius: 5px;
     padding: 0.5em;
+    margin-top: 1em;
 }
 
 .controlRow {

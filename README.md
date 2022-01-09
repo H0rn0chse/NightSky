@@ -2,6 +2,10 @@
 
 This WebComponent is inspired by the CodePen [Parallax Star background in CSS](https://codepen.io/saransh/pen/BKJun) from [Saransh Sinha](https://codepen.io/saransh). Since this is a WebComponent ir can be easily integrated in any React an Vue app.
 
+ * [Libraries](#libraries)
+ * [Usage](#usage)
+ * [Documentation](#documentation)
+
 <p align="center">
     <img src="./assets/animation.gif" />
 </p>
