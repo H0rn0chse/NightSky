@@ -177,7 +177,4 @@
 
     window.customElements.define("night-sky", NightSky);
 
-    globalThis.nightSky = {
-    };
-
 })();
