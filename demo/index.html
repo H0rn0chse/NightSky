@@ -7,6 +7,7 @@
         <title>NightSky</title>
 
         <link rel="stylesheet" href="./main.css">
+        <script type="module" src="./main.js"></script>
 
         <!-- bundled ressources -->
         <script src="../dist/bundle.js"></script>
@@ -22,6 +23,50 @@
         </night-sky>
         <div id="content">
             <h1>NightSky</h1>
+            <div id="controls">
+                <div class="controlRow">
+                    <label for="density">Density</label>
+                    <input
+                        id="density"
+                        name="density"
+                        type="range"
+                        min="1"
+                        max="300"
+                        value="30"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="layer">Layer Count</label>
+                    <input
+                        id="layer"
+                        name="layer"
+                        type="range"
+                        min="1"
+                        max="5"
+                        value="4"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="velocity">Velocity</label>
+                    <input
+                        id="velocity"
+                        name="velocity"
+                        type="range"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="starcolor">Color</label>
+                    <input
+                        id="starcolor"
+                        name="starcolor"
+                        type="color"
+                        value="#ffffff"
+                    >
+                </div>
+            </div>
         </div>
     </body>
     <script
