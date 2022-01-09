@@ -4,11 +4,15 @@ body {
     font-family: sans-serif;
 }
 
-body * {
-    z-index: 1;
+html, body {
+    width: 100vw;
+    height: 100vh;
 }
 
 #content {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -19,12 +23,9 @@ body * {
 }
 
 #nightSky {
-    position: fixed;
-    z-index: 0;
     width: 100vw;
     height: 100vh;
-    top: 0;
-    left: 0;
+    overflow: hidden;
 }
 
 #controls {
