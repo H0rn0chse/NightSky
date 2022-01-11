@@ -26,7 +26,7 @@
             height: ${starSize}px;
             background: transparent;
             box-shadow: ${boxShadow};
-            animation: animStar ${options.baseSpeed * (arr.length - index)}s linear infinite;
+            animation: animStar ${options.baseSpeed * (index + 1)}s linear infinite;
         }
         #stars${index}:after {
             content: " ";
