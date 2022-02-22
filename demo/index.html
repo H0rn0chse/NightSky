@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="icon" type="image/x-icon" href="./favicon.svg">
         <title>NightSky</title>
 
         <link rel="stylesheet" href="./main.css">
         <script type="module" src="./main.js"></script>
 
         <!-- bundled ressources -->
+        <script src="./libs/night-sky/bundle.js" defer></script>
         <script src="../dist/bundle.js"></script>
     </head>
     <body>
@@ -70,10 +71,10 @@
             </div>
         </div>
     </body>
-    <script
-        data-label="Check out the GitHub repository!"
-        data-href="https://github.com/H0rn0chse/NightSky"
-        data-target="_blank"
-        src="https://unpkg.com/github-corners@latest/dist/embed.min.js">
-    </script>
+    <github-corners
+        label="Check out the GitHub repository!"
+        repo="H0rn0chse/NightSky"
+        blank="true"
+    >
+    </github-corners>
 </html>
