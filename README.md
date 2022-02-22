@@ -18,7 +18,7 @@ This WebComponent is inspired by the CodePen [Parallax Star background in CSS](h
  * Github Corners [github.com/YunYouJun/wc-github-corners](https://github.com/YunYouJun/wc-github-corners)
 
  ## Usage
-Please checkout the [demo](https://h0rn0chse.github.io/NightSky/demo/). You can add the resources either locally or via a CDN (or as [npm package](https://www.npmjs.com/package/@h0rn0chse/night-sky)):
+Please checkout the [demo](https://h0rn0chse.github.io/NightSky/). You can add the resources either locally or via a CDN (or as [npm package](https://www.npmjs.com/package/@h0rn0chse/night-sky)):
 ```html
 <script src="https://unpkg.com/@h0rn0chse/night-sky/dist/bundle.min.js"></script>
 ```
