@@ -1,0 +1,55 @@
+@import "fonts.css";
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    font-size: 56pt;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+
+#content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+
+#nightSky {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(123, 25, 214, 0.5);
+    border-radius: 5px;
+    padding: 0.5em;
+    margin-top: 1em;
+}
+
+.controlRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;;
+}
+
+.controlRow * {
+    margin-right: 0.5em;
+}

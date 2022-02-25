@@ -1,0 +1,40 @@
+# build and save build to dist
+
+name: build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: install dependencies
+        run: npm install
+      - name: build dist folder
+        run: npm run build
+      - name: Check changes in dist
+        uses: tj-actions/verify-changed-files@v6.2
+        id: changes
+        with:
+          files: dist
+      - name: Commit dist files
+        if: steps.changes.outputs.files_changed == 'true'
+        run: |
+          git config --local user.name  ${{ github.event.pusher.name }}
+          git config --local user.email  ${{ github.event.pusher.email }}
+          git add ./dist
+          git commit -m "[CI] Updating dist files"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+

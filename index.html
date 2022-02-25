@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="./favicon.svg">
+        <title>NightSky</title>
+        <!-- anonymized statistics-->
+        <script async defer data-website-id="2c7219a8-fe6f-469d-b8b2-8366e0391008" src="https://h0rn0chse-umami.up.railway.app/WQ4fyxmP2iMY.js"></script>
+
+        <link rel="stylesheet" href="./main.css">
+        <script type="module" src="./main.js"></script>
+        <script type="module" src="./libs/github-corner-element/github-corner-element.es.js"></script>
+
+        <!-- bundled ressources -->
+        <script src="./libs/night-sky/bundle.js" defer></script>
+    </head>
+    <body>
+        <!-- Initial values are overwritten by inputs -->
+        <night-sky
+            id="nightSky"
+            layers="4"
+            density="30"
+            velocity-x="0"
+            velocity-y="60"
+            star-shape="circle"
+            star-color="#000"
+            background-color="transparent"
+        >
+        </night-sky>
+        <div id="content">
+            <h1>NightSky</h1>
+            <div id="controls">
+                <div class="controlRow">
+                    <label for="density">Density</label>
+                    <input
+                        id="density"
+                        name="density"
+                        type="range"
+                        min="1"
+                        max="300"
+                        value="30"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="layer">Layer Count</label>
+                    <input
+                        id="layer"
+                        name="layer"
+                        type="range"
+                        min="1"
+                        max="5"
+                        value="4"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="velocityX">VelocityX</label>
+                    <input
+                        id="velocityX-slider"
+                        name="velocityX"
+                        type="range"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                    <input
+                        id="velocityX-input"
+                        name="velocityX"
+                        type="number"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="velocityY">VelocityY</label>
+                    <input
+                        id="velocityY-slider"
+                        name="velocityY"
+                        type="range"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                    <input
+                        id="velocityY-input"
+                        name="velocityY"
+                        type="number"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="starshape">Star Shape</label>
+                    <select id="starshape" name="starshape">
+                        <option value="square">Square</option>
+                        <option value="circle" selected>Circle</option>
+                    </select>
+                </div>
+                <div class="controlRow">
+                    <label for="starcolor">Star Color</label>
+                    <input
+                        id="starcolor"
+                        name="starcolor"
+                        type="color"
+                        value="#ffffff"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="bgcolor">Background Transparent</label>
+                    <input
+                        id="bgcolor"
+                        name="bgcolor"
+                        type="checkbox"
+                    >
+                </div>
+            </div>
+        </div>
+    </body>
+    <github-corner
+        title="Check out the GitHub repository!"
+        href="https://github.com/H0rn0chse/NightSky"
+    >
+    </github-corner>
+</html>
