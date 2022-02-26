@@ -3,6 +3,7 @@ import css from "rollup-plugin-css-porter";
 
 // custom
 import { replaceStyleTemplate } from "./rollup-plugins/replaceStyleTemplate.js";
+import { getBanner } from "./rollup-plugins/banner.js";
 
 export default [
     {
@@ -12,6 +13,7 @@ export default [
                 file: "dist/bundle.js",
                 format: "iife",
                 name: "darkModeToggle",
+                banner: getBanner("dist/bundle.js"),
                 plugins: [
                     replaceStyleTemplate({
                         src: "dist/bundle.css",
@@ -23,8 +25,16 @@ export default [
                 file: "dist/bundle.min.js",
                 format: "iife",
                 name: "darkModeToggle",
+                banner: getBanner("dist/bundle.min.js"),
                 plugins: [
-                    terser(),
+                    terser({
+                        format: {
+                            comments: (node, comment) => {
+                                const text = comment.value;
+                                return /@license/i.test(text);
+                            }
+                        }
+                    }),
                     replaceStyleTemplate({
                         src: "dist/bundle.min.css",
                         target: "dist/bundle.min.js"
