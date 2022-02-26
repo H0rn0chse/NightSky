@@ -1,6 +1,6 @@
 {
   "name": "@h0rn0chse/night-sky",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "WebComponent for a night sky full of stars parallax background made with css only",
   "type": "module",
   "main": "server.js",
