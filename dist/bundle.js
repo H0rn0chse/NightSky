@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 1.0.5 - built at 2022-02-26
+    version 1.0.5 - built at 2022-03-27
     @license MIT
 */
 (function () {
