@@ -22,14 +22,15 @@
     "url": "https://github.com/H0rn0chse/NightSky/issues"
   },
   "homepage": "https://github.com/H0rn0chse/NightSky#readme",
-  "dependencies": {},
+  "dependencies": {
+    "github-corner-element": "^1.0.1"
+  },
   "devDependencies": {
     "@h0rn0chse/socket-server": "^1.1.1",
     "eslint": "^8.6.0",
     "rollup": "^2.63.0",
     "rollup-plugin-css-porter": "^1.0.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "wc-github-corners": "^0.1.5"
+    "rollup-plugin-terser": "^7.0.2"
   },
   "publishConfig": {
     "access": "public"
