@@ -15,7 +15,7 @@ This WebComponent is inspired by the CodePen [Parallax Star background in CSS](h
  * Font [Google Font Poppins](https://fonts.google.com/specimen/Poppins)
    * Fetched via [github.com/majodev/google-webfonts-helper](https://github.com/majodev/google-webfonts-helper)
  * Feather Icons [github.com/feathericons/feather](https://github.com/feathericons/feather)
- * Github Corners [github.com/YunYouJun/wc-github-corners](https://github.com/YunYouJun/wc-github-corners)
+ * Github Corners [github.com/YuskaWu/github-corner-element](https://github.com/YuskaWu/github-corner-element)
 
  ## Usage
 Please checkout the [demo](https://h0rn0chse.github.io/NightSky). You can add the resources either locally or via a CDN (or as [npm package](https://www.npmjs.com/package/@h0rn0chse/night-sky)):
