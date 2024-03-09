@@ -17,11 +17,13 @@
         <script src="./libs/night-sky/bundle.js" defer></script>
     </head>
     <body>
+        <!-- Initial values are overwritten by inputs -->
         <night-sky
             id="nightSky"
             layers="4"
             density="30"
-            velocity="60"
+            velocity-x="0"
+            velocity-y="60"
             starcolor="#FFF"
         >
         </night-sky>
@@ -51,11 +53,38 @@
                     >
                 </div>
                 <div class="controlRow">
-                    <label for="velocity">Velocity</label>
+                    <label for="velocityX">VelocityX</label>
                     <input
-                        id="velocity"
-                        name="velocity"
+                        id="velocityX-slider"
+                        name="velocityX"
                         type="range"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                    <input
+                        id="velocityX-input"
+                        name="velocityX"
+                        type="number"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="velocityY">VelocityY</label>
+                    <input
+                        id="velocityY-slider"
+                        name="velocityY"
+                        type="range"
+                        min="-300"
+                        max="300"
+                        value="60"
+                    >
+                    <input
+                        id="velocityY-input"
+                        name="velocityY"
+                        type="number"
                         min="-300"
                         max="300"
                         value="60"

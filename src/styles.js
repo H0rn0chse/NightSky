@@ -13,35 +13,79 @@ export function calculateStyles (options) {
         }, "");
 
         styles += `
-        #stars${index} {
+        #star_${index} {
+            animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
+            // animation: animStar 3s linear infinite;
+        }
+        #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
-            background: transparent;
             box-shadow: ${boxShadow};
-            animation: animStar ${options.baseSpeed * (index + 1)}s linear infinite;
+            animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
+            // animation: animStar 3s linear infinite;
         }
-        #stars${index}:after {
-            content: " ";
-            position: absolute;
-            top: ${options.height}px;
-            width: ${starSize}px;
-            height: ${starSize}px;
-            background: transparent;
-            box-shadow: ${boxShadow};
-        }
+        // #star_${index}:after {
+        //     content: " ";
+        //     position: absolute;
+        //     top: ${options.height}px;
+        //     left: ${options.width}px;
+        //     width: ${starSize}px;
+        //     height: ${starSize}px;
+        //     background: transparent;
+        //     // box-shadow: ${boxShadow};
+        // }
         `;
     });
 
+    let fromX = 0;
+    let fromY = 0;
+    let toX = 0;
+    let toY = 0;
+
+    if (options.velocityX > 0) {
+        toX = -options.width;
+    } else if (options.velocityX < 0) {
+        fromX = -options.width;
+    }
+
+    if (options.velocityY > 0) {
+        toY = -options.height;
+    } else if (options.velocityY < 0) {
+        fromY = -options.height;
+    }
+
     styles += `
-    @keyframes animStar {
+    @keyframes animStar_x {
         from {
-            transform: translateY(${ options.velocity > 0 ? 0 : -options.height }px);
+            transform: translateX(${ fromX }px);
         }
         to {
-            transform: translateY(${ options.velocity > 0 ? -options.height : 0 }px);
+            transform: translateX(${ toX }px);
+        }
+    }
+    @keyframes animStar_y {
+        from {
+            transform: translateY(${ fromY }px);
+        }
+        to {
+            transform: translateY(${ toY }px);
         }
     }
     `;
+
+    // styles += `
+    // @keyframes animStar {
+    //     from {
+    //         transform: translateY(${ options.velocityY > 0 ? 0 : -options.height }px)
+    //                    translateX(${ options.velocityX > 0 ? 0 : -options.width }px);
+    //     }
+    //     to {
+    //         transform: translateY(${ options.velocityY > 0 ? -options.height : 0 }px) 
+    //                    translateX(${ options.velocityX > 0 ? -options.width : 0 }px);
+    //     }
+    // }
+    // `;
+    
 
     return styles;
 }
