@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 1.0.5 - built at 2022-12-09
+    version 2.0.0 - built at 2024-03-09
     @license MIT
 */
 (function () {
@@ -13,7 +13,16 @@
     height: 100%;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     overflow: hidden;
-}</style>`;
+}
+
+#container.transparent {
+    background: unset;
+}
+
+.star {
+    background: transparent;
+}
+</style>`;
 
     function calculateStyles (options) {
         let styles = "";
@@ -26,32 +35,51 @@
             }, "");
 
             styles += `
-        #stars${index} {
-            width: ${starSize}px;
-            height: ${starSize}px;
-            background: transparent;
-            box-shadow: ${boxShadow};
-            animation: animStar ${options.baseSpeed * (index + 1)}s linear infinite;
+        #star_${index} {
+            animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
         }
-        #stars${index}:after {
-            content: " ";
-            position: absolute;
-            top: ${options.height}px;
+        #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
-            background: transparent;
             box-shadow: ${boxShadow};
+            animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
         }
         `;
         });
 
+        // default to 0 for velocity 0
+        let fromX = 0;
+        let fromY = 0;
+        let toX = 0;
+        let toY = 0;
+
+        if (options.velocityX > 0) {
+            toX = -options.width;
+        } else if (options.velocityX < 0) {
+            fromX = -options.width;
+        }
+
+        if (options.velocityY > 0) {
+            toY = -options.height;
+        } else if (options.velocityY < 0) {
+            fromY = -options.height;
+        }
+
         styles += `
-    @keyframes animStar {
+    @keyframes animStar_x {
         from {
-            transform: translateY(${ options.velocity > 0 ? 0 : -options.height }px);
+            transform: translateX(${ fromX }px);
         }
         to {
-            transform: translateY(${ options.velocity > 0 ? -options.height : 0 }px);
+            transform: translateX(${ toX }px);
+        }
+    }
+    @keyframes animStar_y {
+        from {
+            transform: translateY(${ fromY }px);
+        }
+        to {
+            transform: translateY(${ toY }px);
         }
     }
     `;
@@ -64,8 +92,10 @@
             return [
                 "layers",
                 "density",
-                "starcolor",
-                "velocity",
+                "velocity-x",
+                "velocity-y",
+                "star-color",
+                "background-color",
             ];
         }
 
@@ -105,12 +135,20 @@
             }
 
             switch (name) {
-                case "starcolor":
+                case "star-color":
                     this.setAttribute(name, newValue);
+                    break;
+                case "background-color":
+                    if (["", "transparent"].includes(newValue)) {
+                        this.setAttribute(name, newValue);
+                    } else {
+                        throw new Error(`The color ${newValue} is not supported`);
+                    }
                     break;
                 case "layers":
                 case "density":
-                case "velocity":
+                case "velocity-x":
+                case "velocity-y":
                     this.setAttribute(name, parseInt(newValue, 10));
                     break;
                 default:
@@ -124,13 +162,15 @@
 
         getOptions () {
             const options = {
-                starColor: this.getAttribute("starcolor") || "#FFF",
+                starColor: this.getAttribute("star-color") || "#FFF",
                 layerCount: parseInt(this.getAttribute("layers"), 10) || 3,
                 layers: [],
                 density: parseInt(this.getAttribute("density"), 10) || 50,
-                velocity: parseInt(this.getAttribute("velocity"), 10) || 60,
+                velocityX: parseInt(this.getAttribute("velocity-x") ?? "60", 10),
+                velocityY: parseInt(this.getAttribute("velocity-y") ?? "60", 10),
                 width: parseInt(this._container.clientWidth, 10),
                 height: parseInt(this._container.clientHeight, 10),
+                backgroundColor: this.getAttribute("background-color") ?? "",
             };
 
             // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -140,16 +180,35 @@
                 starCount = starCount * 2;
                 const layer = [];
                 for (let k=0; k < starCount; k++) {
-                    const starPos = {
-                        x: Math.round(Math.random() * options.width),
-                        y: Math.round(Math.random() * options.height),
-                    };
-                    layer.push(starPos);
+                    const x = Math.round(Math.random() * options.width);
+                    const y = Math.round(Math.random() * options.height);
+                    
+                    // Actual position
+                    layer.push({
+                        x,
+                        y,
+                    });
+
+                    // Replications to prevent gaps in animation
+                    layer.push({
+                        x: x + options.width,
+                        y: y + options.height,
+                    });
+                    layer.push({
+                        x: x + options.width,
+                        y: y,
+                    });
+                    layer.push({
+                        x: x,
+                        y: y + options.height,
+                    });
                 }
                 options.layers.push(layer);
             }
 
-            options.baseSpeed = options.height * ( 1 / Math.abs(options.velocity) );
+            // calculate base speed to have screen independent speed
+            options.baseSpeedX = options.width * ( 1 / Math.abs(options.velocityX) );
+            options.baseSpeedY = options.height * ( 1 / Math.abs(options.velocityY) );
 
             return options;
         }
@@ -167,15 +226,22 @@
 
             this._styles.innerHTML = calculateStyles(options);
 
-            this._container.querySelectorAll(".stars").forEach((star) => {
+            this._container.querySelectorAll(".star").forEach((star) => {
                 star.remove();
             });
 
+            this._container.classList.toggle("transparent", options.backgroundColor === "transparent");
+
             for (let i=0; i < options.layerCount; i++) {
-                const star = document.createElement("div");
-                star.id = `stars${i}`;
-                star.classList.add("stars");
-                this._container.appendChild(star);
+                const starOuter = document.createElement("div");
+                starOuter.id = `star_${i}`;
+                starOuter.classList.add("star");
+
+                const starInner = document.createElement("div");
+                starInner.classList.add("star", "inner");
+
+                starOuter.appendChild(starInner);
+                this._container.appendChild(starOuter);
             }
         }
     }

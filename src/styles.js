@@ -13,32 +13,51 @@ export function calculateStyles (options) {
         }, "");
 
         styles += `
-        #stars${index} {
-            width: ${starSize}px;
-            height: ${starSize}px;
-            background: transparent;
-            box-shadow: ${boxShadow};
-            animation: animStar ${options.baseSpeed * (index + 1)}s linear infinite;
+        #star_${index} {
+            animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
         }
-        #stars${index}:after {
-            content: " ";
-            position: absolute;
-            top: ${options.height}px;
+        #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
-            background: transparent;
             box-shadow: ${boxShadow};
+            animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
         }
         `;
     });
 
+    // default to 0 for velocity 0
+    let fromX = 0;
+    let fromY = 0;
+    let toX = 0;
+    let toY = 0;
+
+    if (options.velocityX > 0) {
+        toX = -options.width;
+    } else if (options.velocityX < 0) {
+        fromX = -options.width;
+    }
+
+    if (options.velocityY > 0) {
+        toY = -options.height;
+    } else if (options.velocityY < 0) {
+        fromY = -options.height;
+    }
+
     styles += `
-    @keyframes animStar {
+    @keyframes animStar_x {
         from {
-            transform: translateY(${ options.velocity > 0 ? 0 : -options.height }px);
+            transform: translateX(${ fromX }px);
         }
         to {
-            transform: translateY(${ options.velocity > 0 ? -options.height : 0 }px);
+            transform: translateX(${ toX }px);
+        }
+    }
+    @keyframes animStar_y {
+        from {
+            transform: translateY(${ fromY }px);
+        }
+        to {
+            transform: translateY(${ toY }px);
         }
     }
     `;
