@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 1.0.5 - built at 2024-03-09
+    version 2.0.0 - built at 2024-03-09
     @license MIT
 */
 (function () {
@@ -15,13 +15,14 @@
     overflow: hidden;
 }
 
+#container.transparent {
+    background: unset;
+}
+
 .star {
     background: transparent;
 }
-
-.star.inner {
-    /* display: none; */
-}</style>`;
+</style>`;
 
     function calculateStyles (options) {
         let styles = "";
@@ -36,28 +37,17 @@
             styles += `
         #star_${index} {
             animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
-            // animation: animStar 3s linear infinite;
         }
         #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
             box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
-            // animation: animStar 3s linear infinite;
         }
-        // #star_${index}:after {
-        //     content: " ";
-        //     position: absolute;
-        //     top: ${options.height}px;
-        //     left: ${options.width}px;
-        //     width: ${starSize}px;
-        //     height: ${starSize}px;
-        //     background: transparent;
-        //     // box-shadow: ${boxShadow};
-        // }
         `;
         });
 
+        // default to 0 for velocity 0
         let fromX = 0;
         let fromY = 0;
         let toX = 0;
@@ -94,20 +84,6 @@
     }
     `;
 
-        // styles += `
-        // @keyframes animStar {
-        //     from {
-        //         transform: translateY(${ options.velocityY > 0 ? 0 : -options.height }px)
-        //                    translateX(${ options.velocityX > 0 ? 0 : -options.width }px);
-        //     }
-        //     to {
-        //         transform: translateY(${ options.velocityY > 0 ? -options.height : 0 }px) 
-        //                    translateX(${ options.velocityX > 0 ? -options.width : 0 }px);
-        //     }
-        // }
-        // `;
-        
-
         return styles;
     }
 
@@ -116,9 +92,10 @@
             return [
                 "layers",
                 "density",
-                "starcolor",
                 "velocity-x",
                 "velocity-y",
+                "star-color",
+                "background-color",
             ];
         }
 
@@ -158,8 +135,15 @@
             }
 
             switch (name) {
-                case "starcolor":
+                case "star-color":
                     this.setAttribute(name, newValue);
+                    break;
+                case "background-color":
+                    if (["", "transparent"].includes(newValue)) {
+                        this.setAttribute(name, newValue);
+                    } else {
+                        throw new Error(`The color ${newValue} is not supported`);
+                    }
                     break;
                 case "layers":
                 case "density":
@@ -178,7 +162,7 @@
 
         getOptions () {
             const options = {
-                starColor: this.getAttribute("starcolor") || "#FFF",
+                starColor: this.getAttribute("star-color") || "#FFF",
                 layerCount: parseInt(this.getAttribute("layers"), 10) || 3,
                 layers: [],
                 density: parseInt(this.getAttribute("density"), 10) || 50,
@@ -186,6 +170,7 @@
                 velocityY: parseInt(this.getAttribute("velocity-y") ?? "60", 10),
                 width: parseInt(this._container.clientWidth, 10),
                 height: parseInt(this._container.clientHeight, 10),
+                backgroundColor: this.getAttribute("background-color") ?? "",
             };
 
             // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -221,6 +206,7 @@
                 options.layers.push(layer);
             }
 
+            // calculate base speed to have screen independent speed
             options.baseSpeedX = options.width * ( 1 / Math.abs(options.velocityX) );
             options.baseSpeedY = options.height * ( 1 / Math.abs(options.velocityY) );
 
@@ -243,6 +229,8 @@
             this._container.querySelectorAll(".star").forEach((star) => {
                 star.remove();
             });
+
+            this._container.classList.toggle("transparent", options.backgroundColor === "transparent");
 
             for (let i=0; i < options.layerCount; i++) {
                 const starOuter = document.createElement("div");

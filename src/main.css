@@ -5,10 +5,10 @@
     overflow: hidden;
 }
 
-.star {
-    background: transparent;
+#container.transparent {
+    background: unset;
 }
 
-.star.inner {
-    /* display: none; */
+.star {
+    background: transparent;
 }

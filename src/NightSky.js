@@ -5,9 +5,10 @@ export class NightSky extends HTMLElement {
         return [
             "layers",
             "density",
-            "starcolor",
             "velocity-x",
             "velocity-y",
+            "star-color",
+            "background-color",
         ];
     }
 
@@ -47,8 +48,15 @@ export class NightSky extends HTMLElement {
         }
 
         switch (name) {
-            case "starcolor":
+            case "star-color":
                 this.setAttribute(name, newValue);
+                break;
+            case "background-color":
+                if (["", "transparent"].includes(newValue)) {
+                    this.setAttribute(name, newValue);
+                } else {
+                    throw new Error(`The color ${newValue} is not supported`);
+                }
                 break;
             case "layers":
             case "density":
@@ -67,7 +75,7 @@ export class NightSky extends HTMLElement {
 
     getOptions () {
         const options = {
-            starColor: this.getAttribute("starcolor") || "#FFF",
+            starColor: this.getAttribute("star-color") || "#FFF",
             layerCount: parseInt(this.getAttribute("layers"), 10) || 3,
             layers: [],
             density: parseInt(this.getAttribute("density"), 10) || 50,
@@ -75,6 +83,7 @@ export class NightSky extends HTMLElement {
             velocityY: parseInt(this.getAttribute("velocity-y") ?? "60", 10),
             width: parseInt(this._container.clientWidth, 10),
             height: parseInt(this._container.clientHeight, 10),
+            backgroundColor: this.getAttribute("background-color") ?? "",
         };
 
         // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -110,6 +119,7 @@ export class NightSky extends HTMLElement {
             options.layers.push(layer);
         }
 
+        // calculate base speed to have screen independent speed
         options.baseSpeedX = options.width * ( 1 / Math.abs(options.velocityX) );
         options.baseSpeedY = options.height * ( 1 / Math.abs(options.velocityY) );
 
@@ -132,6 +142,8 @@ export class NightSky extends HTMLElement {
         this._container.querySelectorAll(".star").forEach((star) => {
             star.remove();
         });
+
+        this._container.classList.toggle("transparent", options.backgroundColor === "transparent");
 
         for (let i=0; i < options.layerCount; i++) {
             const starOuter = document.createElement("div");

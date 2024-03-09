@@ -15,28 +15,17 @@ export function calculateStyles (options) {
         styles += `
         #star_${index} {
             animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
-            // animation: animStar 3s linear infinite;
         }
         #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
             box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
-            // animation: animStar 3s linear infinite;
         }
-        // #star_${index}:after {
-        //     content: " ";
-        //     position: absolute;
-        //     top: ${options.height}px;
-        //     left: ${options.width}px;
-        //     width: ${starSize}px;
-        //     height: ${starSize}px;
-        //     background: transparent;
-        //     // box-shadow: ${boxShadow};
-        // }
         `;
     });
 
+    // default to 0 for velocity 0
     let fromX = 0;
     let fromY = 0;
     let toX = 0;
@@ -72,20 +61,6 @@ export function calculateStyles (options) {
         }
     }
     `;
-
-    // styles += `
-    // @keyframes animStar {
-    //     from {
-    //         transform: translateY(${ options.velocityY > 0 ? 0 : -options.height }px)
-    //                    translateX(${ options.velocityX > 0 ? 0 : -options.width }px);
-    //     }
-    //     to {
-    //         transform: translateY(${ options.velocityY > 0 ? -options.height : 0 }px) 
-    //                    translateX(${ options.velocityX > 0 ? -options.width : 0 }px);
-    //     }
-    // }
-    // `;
-    
 
     return styles;
 }

@@ -19,6 +19,7 @@ velocityXSlider.addEventListener("change", (evt) => {
 });
 velocityXInput.addEventListener("change", (evt) => {
     background.setAttribute("velocity-x", velocityXInput.value);
+    velocityXSlider.value = velocityXInput.value;
 });
 
 const velocityYSlider = document.querySelector("#velocityY-slider");
@@ -30,11 +31,17 @@ velocityYSlider.addEventListener("change", (evt) => {
 });
 velocityYInput.addEventListener("change", (evt) => {
     background.setAttribute("velocity-y", velocityYInput.value);
+    velocityYSlider.value = velocityYInput.value;
 });
 
-const starcolorInput = document.querySelector("#starcolor");
-starcolorInput.addEventListener("change", (evt) => {
-    background.setAttribute("starcolor", starcolorInput.value);
+const starColorInput = document.querySelector("#starcolor");
+starColorInput.addEventListener("change", (evt) => {
+    background.setAttribute("star-color", starColorInput.value);
+});
+
+const bgColorInput = document.querySelector("#bgcolor");
+bgColorInput.addEventListener("change", (evt) => {
+    background.setAttribute("background-color", bgColorInput.checked ? "transparent" : "");
 });
 
 // Initial values
@@ -44,4 +51,6 @@ background.setAttribute("velocity-x", velocityXSlider.value);
 velocityXInput.value = velocityXSlider.value;
 background.setAttribute("velocity-y", velocityYSlider.value);
 velocityYInput.value = velocityYSlider.value;
-background.setAttribute("starcolor", starcolorInput.value);
+background.setAttribute("star-color", starColorInput.value);
+background.setAttribute("background-color", bgColorInput.checked ? "transparent" : "");
+

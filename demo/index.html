@@ -24,7 +24,8 @@
             density="30"
             velocity-x="0"
             velocity-y="60"
-            starcolor="#FFF"
+            star-color="#000"
+            background-color="transparent"
         >
         </night-sky>
         <div id="content">
@@ -91,12 +92,20 @@
                     >
                 </div>
                 <div class="controlRow">
-                    <label for="starcolor">Color</label>
+                    <label for="starcolor">Star Color</label>
                     <input
                         id="starcolor"
                         name="starcolor"
                         type="color"
                         value="#ffffff"
+                    >
+                </div>
+                <div class="controlRow">
+                    <label for="bgcolor">Background Transparent</label>
+                    <input
+                        id="bgcolor"
+                        name="bgcolor"
+                        type="checkbox"
                     >
                 </div>
             </div>
