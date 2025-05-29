@@ -44,6 +44,11 @@ bgColorInput.addEventListener("change", (evt) => {
     background.setAttribute("background-color", bgColorInput.checked ? "transparent" : "");
 });
 
+const starShapeInput = document.querySelector("#starshape");
+starShapeInput.addEventListener("change", (evt) => {
+    background.setAttribute("star-shape", starShapeInput.value);
+});
+
 // Initial values
 background.setAttribute("density", densityInput.value);
 background.setAttribute("layers", layerInput.value);
@@ -53,4 +58,5 @@ background.setAttribute("velocity-y", velocityYSlider.value);
 velocityYInput.value = velocityYSlider.value;
 background.setAttribute("star-color", starColorInput.value);
 background.setAttribute("background-color", bgColorInput.checked ? "transparent" : "");
+background.setAttribute("star-shape", starShapeInput.value);
 

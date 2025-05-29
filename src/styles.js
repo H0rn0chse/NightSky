@@ -19,8 +19,10 @@ export function calculateStyles (options) {
         #star_${index} .inner {
             width: ${starSize}px;
             height: ${starSize}px;
-            box-shadow: ${boxShadow};
+            ${options.starShape !== 'star' ? `box-shadow: ${boxShadow};` : ''}
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
+            background: ${options.starColor};
+            ${options.starShape === 'circle' ? 'border-radius: 50%;' : ''}
         }
         `;
     });

@@ -9,6 +9,7 @@ export class NightSky extends HTMLElement {
             "velocity-y",
             "star-color",
             "background-color",
+            "star-shape", // Add star-shape to observed attributes
         ];
     }
 
@@ -64,6 +65,9 @@ export class NightSky extends HTMLElement {
             case "velocity-y":
                 this.setAttribute(name, parseInt(newValue, 10));
                 break;
+            case "star-shape":
+                this.setAttribute(name, newValue);
+                break;
             default:
                 throw new Error(`The property ${name} is not supported`);
         }
@@ -84,6 +88,7 @@ export class NightSky extends HTMLElement {
             width: parseInt(this._container.clientWidth, 10),
             height: parseInt(this._container.clientHeight, 10),
             backgroundColor: this.getAttribute("background-color") ?? "",
+            starShape: this.getAttribute("star-shape") || "square", // Add starShape to options
         };
 
         // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -145,6 +150,7 @@ export class NightSky extends HTMLElement {
 
         this._container.classList.toggle("transparent", options.backgroundColor === "transparent");
 
+        // Default: use box-shadow for square/circle
         for (let i=0; i < options.layerCount; i++) {
             const starOuter = document.createElement("div");
             starOuter.id = `star_${i}`;
