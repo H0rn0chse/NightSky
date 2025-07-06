@@ -1,5 +1,7 @@
-import { terser } from "rollup-plugin-terser";
-import css from "rollup-plugin-css-porter";
+import terser from "@rollup/plugin-terser";
+import css from "rollup-plugin-css-only";
+import CleanCss from "clean-css";
+import copy from "rollup-plugin-copy";
 
 // custom
 import { replaceStyleTemplate } from "./rollup-plugins/replaceStyleTemplate.js";
@@ -35,6 +37,15 @@ export default [
                             }
                         }
                     }),
+                    copy({
+                        hook: "generateBundle",
+                        targets: [{
+                            src: "dist/bundle.css",
+                            dest: "dist",
+                            rename: () => "bundle.min.css",
+                            transform: (contents) => new CleanCss().minify(contents).styles
+                        }]
+                    }),
                     replaceStyleTemplate({
                         src: "dist/bundle.min.css",
                         target: "dist/bundle.min.js"
@@ -44,8 +55,7 @@ export default [
         ],
         plugins: [
             css({
-                raw: "dist/bundle.css",
-                minified: "dist/bundle.min.css",
+                output: "bundle.css"
             })
         ]
     }

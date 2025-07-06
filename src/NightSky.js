@@ -7,6 +7,7 @@ export class NightSky extends HTMLElement {
             "density",
             "velocity-x",
             "velocity-y",
+            "star-shape",
             "star-color",
             "background-color",
         ];
@@ -58,6 +59,14 @@ export class NightSky extends HTMLElement {
                     throw new Error(`The color ${newValue} is not supported`);
                 }
                 break;
+            case "star-shape":
+                if (!["circle", "square"].includes(newValue)) {
+                    console.error(`The star shape ${newValue} is not supported, defaulting to square`);
+                    this.setAttribute(name, "square");
+                } else {
+                    this.setAttribute(name, newValue);
+                }
+                break;
             case "layers":
             case "density":
             case "velocity-x":
@@ -84,6 +93,7 @@ export class NightSky extends HTMLElement {
             width: parseInt(this._container.clientWidth, 10),
             height: parseInt(this._container.clientHeight, 10),
             backgroundColor: this.getAttribute("background-color") ?? "",
+            starShape: this.getAttribute("star-shape") || "square",
         };
 
         // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -152,6 +162,15 @@ export class NightSky extends HTMLElement {
 
             const starInner = document.createElement("div");
             starInner.classList.add("star", "inner");
+
+            options.layers.forEach((layer) => {
+                layer.forEach((pos) => {
+                    const starClone = starInner.cloneNode();
+                    starClone.style.left = `${pos.x}px`;
+                    starClone.style.top = `${pos.y}px`;
+                    starOuter.appendChild(starClone);
+                });
+            });
 
             starOuter.appendChild(starInner);
             this._container.appendChild(starOuter);

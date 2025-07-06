@@ -34,6 +34,11 @@ velocityYInput.addEventListener("change", (evt) => {
     velocityYSlider.value = velocityYInput.value;
 });
 
+const starShapeInput = document.querySelector("#starshape");
+starShapeInput.addEventListener("change", (evt) => {
+    background.setAttribute("star-shape", starShapeInput.value);
+});
+
 const starColorInput = document.querySelector("#starcolor");
 starColorInput.addEventListener("change", (evt) => {
     background.setAttribute("star-color", starColorInput.value);
@@ -51,6 +56,7 @@ background.setAttribute("velocity-x", velocityXSlider.value);
 velocityXInput.value = velocityXSlider.value;
 background.setAttribute("velocity-y", velocityYSlider.value);
 velocityYInput.value = velocityYSlider.value;
+background.setAttribute("star-shape", starShapeInput.value);
 background.setAttribute("star-color", starColorInput.value);
 background.setAttribute("background-color", bgColorInput.checked ? "transparent" : "");
 

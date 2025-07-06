@@ -4,24 +4,23 @@ name: build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12
+          node-version: lts
       - name: install dependencies
         run: npm install
       - name: build dist folder
         run: npm run build
       - name: Check changes in dist
-        uses: tj-actions/verify-changed-files@v12
+        uses: tj-actions/verify-changed-files@v20
         id: changes
         with:
           files: dist
@@ -37,4 +36,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
-

@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 2.0.0 - built at 2024-03-09
+    version 2.0.0 - built at 2025-07-06
     @license MIT
 */
 (function () {
@@ -22,6 +22,7 @@
 .star {
     background: transparent;
 }
+
 </style>`;
 
     function calculateStyles (options) {
@@ -37,12 +38,21 @@
             styles += `
         #star_${index} {
             animation: animStar_x ${options.baseSpeedX * (index + 1)}s linear infinite;
+            position: fixed;
         }
         #star_${index} .inner {
-            width: ${starSize}px;
-            height: ${starSize}px;
-            box-shadow: ${boxShadow};
+            /*width: ${starSize}px;
+            height: ${starSize}px; */
+            /*box-shadow: ${boxShadow};*/
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
+            /* border-radius: ${options.starShape === "circle" ? "50%" : "0"}; */
+
+            width: 0;
+            height: 0;
+            border-left: ${starSize*4 +10}px solid transparent;
+            border-right: ${starSize*4 +10}px solid transparent;
+            border-bottom: ${starSize*4 +10}px solid red;
+            position: relative;
         }
         `;
         });
@@ -94,6 +104,7 @@
                 "density",
                 "velocity-x",
                 "velocity-y",
+                "star-shape",
                 "star-color",
                 "background-color",
             ];
@@ -145,6 +156,14 @@
                         throw new Error(`The color ${newValue} is not supported`);
                     }
                     break;
+                case "star-shape":
+                    if (!["circle", "square"].includes(newValue)) {
+                        console.error(`The star shape ${newValue} is not supported, defaulting to square`);
+                        this.setAttribute(name, "square");
+                    } else {
+                        this.setAttribute(name, newValue);
+                    }
+                    break;
                 case "layers":
                 case "density":
                 case "velocity-x":
@@ -171,6 +190,7 @@
                 width: parseInt(this._container.clientWidth, 10),
                 height: parseInt(this._container.clientHeight, 10),
                 backgroundColor: this.getAttribute("background-color") ?? "",
+                starShape: this.getAttribute("star-shape") || "square",
             };
 
             // we want to have ~ options.density stars on a regular screen with 1920x1080
@@ -240,11 +260,27 @@
                 const starInner = document.createElement("div");
                 starInner.classList.add("star", "inner");
 
+                options.layers.forEach((layer) => {
+                    layer.forEach((pos) => {
+                        const starClone = starInner.cloneNode();
+                        starClone.style.left = `${pos.x}px`;
+                        starClone.style.top = `${pos.y}px`;
+                        starOuter.appendChild(starClone);
+                    });
+                });
+
                 starOuter.appendChild(starInner);
                 this._container.appendChild(starOuter);
             }
         }
     }
+
+    /**
+     * Main entry point for the NightSky web component.
+     * This file imports the necessary styles and defines the custom element.
+     * It is the starting point for the build process.
+     */
+
 
     window.customElements.define("night-sky", NightSky);
 
