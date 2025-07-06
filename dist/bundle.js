@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 2.0.0 - built at 2024-03-09
+    version 2.0.0 - built at 2025-07-06
     @license MIT
 */
 (function () {
@@ -22,6 +22,7 @@
 .star {
     background: transparent;
 }
+
 </style>`;
 
     function calculateStyles (options) {
@@ -245,6 +246,13 @@
             }
         }
     }
+
+    /**
+     * Main entry point for the NightSky web component.
+     * This file imports the necessary styles and defines the custom element.
+     * It is the starting point for the build process.
+     */
+
 
     window.customElements.define("night-sky", NightSky);
 

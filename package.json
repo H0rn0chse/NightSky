@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "dev": "concurrently \"npm run watch\" \"npm run start\""
   },
   "repository": {
     "type": "git",
@@ -24,11 +25,14 @@
   "homepage": "https://github.com/H0rn0chse/NightSky#readme",
   "devDependencies": {
     "@h0rn0chse/socket-server": "^1.1.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "clean-css": "^5.3.3",
+    "concurrently": "^9.2.0",
     "eslint": "^8.6.0",
     "github-corner-element": "^1.0.1",
-    "rollup": "^2.63.0",
-    "rollup-plugin-css-porter": "^1.0.2",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup": "^4.44.2",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-css-only": "^4.5.2"
   },
   "publishConfig": {
     "access": "public"
