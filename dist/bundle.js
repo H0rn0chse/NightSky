@@ -1,6 +1,6 @@
 /*
     @h0rn0chse/night-sky - dist/bundle.js
-    version 2.1.0 - built at 2025-07-06
+    version 2.0.0 - built at 2025-07-06
     @license MIT
 */
 (function () {
@@ -41,18 +41,11 @@
             position: fixed;
         }
         #star_${index} .inner {
-            /*width: ${starSize}px;
-            height: ${starSize}px; */
-            /*box-shadow: ${boxShadow};*/
+            width: ${starSize}px;
+            height: ${starSize}px;
+            box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
-            /* border-radius: ${options.starShape === "circle" ? "50%" : "0"}; */
-
-            width: 0;
-            height: 0;
-            border-left: ${starSize*4 +10}px solid transparent;
-            border-right: ${starSize*4 +10}px solid transparent;
-            border-bottom: ${starSize*4 +10}px solid red;
-            position: relative;
+            border-radius: ${options.starShape === "circle" ? "50%" : "0"};
         }
         `;
         });
@@ -259,15 +252,6 @@
 
                 const starInner = document.createElement("div");
                 starInner.classList.add("star", "inner");
-
-                options.layers.forEach((layer) => {
-                    layer.forEach((pos) => {
-                        const starClone = starInner.cloneNode();
-                        starClone.style.left = `${pos.x}px`;
-                        starClone.style.top = `${pos.y}px`;
-                        starOuter.appendChild(starClone);
-                    });
-                });
 
                 starOuter.appendChild(starInner);
                 this._container.appendChild(starOuter);

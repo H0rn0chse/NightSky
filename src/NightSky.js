@@ -163,15 +163,6 @@ export class NightSky extends HTMLElement {
             const starInner = document.createElement("div");
             starInner.classList.add("star", "inner");
 
-            options.layers.forEach((layer) => {
-                layer.forEach((pos) => {
-                    const starClone = starInner.cloneNode();
-                    starClone.style.left = `${pos.x}px`;
-                    starClone.style.top = `${pos.y}px`;
-                    starOuter.appendChild(starClone);
-                });
-            });
-
             starOuter.appendChild(starInner);
             this._container.appendChild(starOuter);
         }

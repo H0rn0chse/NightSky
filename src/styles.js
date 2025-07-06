@@ -18,18 +18,11 @@ export function calculateStyles (options) {
             position: fixed;
         }
         #star_${index} .inner {
-            /*width: ${starSize}px;
-            height: ${starSize}px; */
-            /*box-shadow: ${boxShadow};*/
+            width: ${starSize}px;
+            height: ${starSize}px;
+            box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
-            /* border-radius: ${options.starShape === "circle" ? "50%" : "0"}; */
-
-            width: 0;
-            height: 0;
-            border-left: ${starSize*4 +10}px solid transparent;
-            border-right: ${starSize*4 +10}px solid transparent;
-            border-bottom: ${starSize*4 +10}px solid red;
-            position: relative;
+            border-radius: ${options.starShape === "circle" ? "50%" : "0"};
         }
         `;
     });
