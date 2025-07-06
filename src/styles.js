@@ -21,6 +21,7 @@ export function calculateStyles (options) {
             height: ${starSize}px;
             box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
+            border-radius: ${options.starShape === "circle" ? "50%" : "0"};
         }
         `;
     });

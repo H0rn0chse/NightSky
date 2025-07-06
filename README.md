@@ -35,6 +35,7 @@ You can add the background as WebComponent.
   density="30"
   velocity-x="60"
   velocity-y="60"
+  star-shape="circle"
   star-color="#FFF"
   background-color="transparent"
 >
@@ -72,6 +73,13 @@ provided as positive or negative integer.
 
 `velocity-y` describes the speed of the last layer. Each layer above moves with nth time of this speed. It should be
 provided as positive or negative integer.
+
+### star-shape
+
+`star-shape` defines the shape of the individual shapes. Available shapes;
+
+- `square` (default)
+- `circle`
 
 ### star-color
 

@@ -44,6 +44,7 @@
             height: ${starSize}px;
             box-shadow: ${boxShadow};
             animation: animStar_y ${options.baseSpeedY * (index + 1)}s linear infinite;
+            border-radius: ${options.starShape === "circle" ? "50%" : "0"};
         }
         `;
         });
@@ -95,6 +96,7 @@
                 "density",
                 "velocity-x",
                 "velocity-y",
+                "star-shape",
                 "star-color",
                 "background-color",
             ];
@@ -146,6 +148,14 @@
                         throw new Error(`The color ${newValue} is not supported`);
                     }
                     break;
+                case "star-shape":
+                    if (!["circle", "square"].includes(newValue)) {
+                        console.error(`The star shape ${newValue} is not supported, defaulting to square`);
+                        this.setAttribute(name, "square");
+                    } else {
+                        this.setAttribute(name, newValue);
+                    }
+                    break;
                 case "layers":
                 case "density":
                 case "velocity-x":
@@ -172,6 +182,7 @@
                 width: parseInt(this._container.clientWidth, 10),
                 height: parseInt(this._container.clientHeight, 10),
                 backgroundColor: this.getAttribute("background-color") ?? "",
+                starShape: this.getAttribute("star-shape") || "square",
             };
 
             // we want to have ~ options.density stars on a regular screen with 1920x1080

@@ -24,6 +24,7 @@
             density="30"
             velocity-x="0"
             velocity-y="60"
+            star-shape="circle"
             star-color="#000"
             background-color="transparent"
         >
@@ -90,6 +91,13 @@
                         max="300"
                         value="60"
                     >
+                </div>
+                <div class="controlRow">
+                    <label for="starshape">Star Shape</label>
+                    <select id="starshape" name="starshape">
+                        <option value="square">Square</option>
+                        <option value="circle" selected>Circle</option>
+                    </select>
                 </div>
                 <div class="controlRow">
                     <label for="starcolor">Star Color</label>
